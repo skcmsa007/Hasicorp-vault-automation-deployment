@@ -1,0 +1,18 @@
+version: '3.3'
+
+services:
+  vault:
+    build: ./main_vault
+    image: xlrt_vault
+    container_name: prodvault
+    
+    environment:
+      VAULT_ADDR: http://0.0.0.0:8200
+    ports:
+      - "8200:8200"
+    # volumes:
+    #   - ./vault/file:/vault/file:rw
+      # - ./vault/config:/vault/config:rw
+    cap_add:
+      - IPC_LOCK
+    entrypoint: vault server -config=/vault/config/vault.json
